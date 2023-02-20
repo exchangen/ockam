@@ -8,7 +8,6 @@ on:
     paths:
       - 'implementations/rust/ockam/**'
   merge_group:
-
 defaults:
   run:
     shell: bash
