@@ -7,6 +7,7 @@ categories = [
     "network-programming",
     "embedded",
 ]
+
 description = "End-to-end encryption and mutual authentication for distributed applications."
 edition = "2021"
 exclude = ["tests/**"]
