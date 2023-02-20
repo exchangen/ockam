@@ -13,7 +13,7 @@ defaults:
 
 env:
   RELEASE_LABEL_NAME: release
-  ON_FREEZE_MODE: false
+  ON_FREEZE_MODE: true
 
 jobs:
   code_freeze_pr:
