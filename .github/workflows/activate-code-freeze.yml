@@ -83,4 +83,4 @@ jobs:
             git commit -S -m "ci: unfreeze pull_requests"
           fi
 
-          git push --set-upstream origin ${{ github.event.inputs.branch_name }}
+          git push --set-upstream origin ${{ github.event.inputs.branch_name }}\
