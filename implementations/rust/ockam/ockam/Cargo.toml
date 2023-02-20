@@ -66,6 +66,7 @@ no_std = [
     "ockam_identity/no_std",
 ]
 
+
 # Feature: "alloc" enables support for heap allocation (implied by `feature = "std"`)
 alloc = [
     "ockam_core/alloc",
