@@ -19,6 +19,7 @@
       },
       strict: false,
       parse_timeout: 5000,
+      # hhh
       color: true,
 
       #
