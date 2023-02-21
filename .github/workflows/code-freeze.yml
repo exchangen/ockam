@@ -1,0 +1,84 @@
+name: Code Freeze CI
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  merge_group:
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  RELEASE_LABEL_NAME: release
+  ON_FREEZE_MODE: false
+
+jobs:
+  code_freeze_pr:
+    name: Code Freeze Pull Request
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout To Repo
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          fetch-depth: 0
+
+      - name: Block Rust Changes On Code Freeze
+        if: ${{ env.ON_FREEZE_MODE == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -ex
+
+          ockam_team_members="""
+            etorreborre
+            mrinalwadhwa
+            davide-baldo
+            hairyhum
+            glenngillen
+            CAOakleyII
+            BeenzSyed
+            SanjoDeundiak
+            adrianbenavides
+            polvorin
+            mattgreg
+            metaclips
+            mszpakowski
+          """
+
+          default_branch=$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name  )
+          if git diff origin/"$default_branch" --quiet --name-status -- implementations/rust/ockam; then
+            echo "No Rust changes exiting now"
+            exit 0
+          fi
+
+          # At this point, there's an update to this event
+          # so we enforce code-freeze rules.
+          # - Block if there is a Rust change
+          # - Bypass if user is an Ockam member and labelled their
+          # PR as release.
+          pr_number_or_branch="${{ github.head_ref || github.ref_name }}"
+
+          # Check if it's a merge-queue CI
+          if [[ $pr_number_or_branch =~ gh-readonly-queue.*/pr\-([0-9]*)\-.* ]]; then
+            pr_number_or_branch="${BASH_REMATCH[1]}"
+            echo "PR number is $pr_number_or_branch"
+          fi
+
+          pr_data=$(gh pr view $pr_number_or_branch -R exchangen/ockam --json labels,author)
+
+          labels=$(jq -r '.labels[].name' <<< $pr_data)
+          pr_actor=$(jq -r '.author.login' <<< $pr_data)
+
+          # If the PR is labeled as release and PR is created by a
+          # Ockam team member, then pass.
+          if [[ $labels == *"${{ env.RELEASE_LABEL_NAME }}"* ]]; then
+            if [[ $ockam_team_members == *"$pr_actor"* ]]; then
+              exit 0
+            fi
+          fi
+
+          exit 1
