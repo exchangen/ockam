@@ -11,5 +11,4 @@ readme = "README.md"
 repository = "https://github.com/build-trust/ockam"
 publish = false
 rust-version = "1.56.0"
-
 [dependencies]
