@@ -42,6 +42,7 @@ jobs:
       - name: Merge Crate Bump PR
         run: |
           set -ex
+          git pull origin
           git merge --ff-only ${{ github.event.inputs.pr_branch }}
           git push
 
