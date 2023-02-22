@@ -248,7 +248,7 @@ jobs:
           cargo install --version 0.1.16 cross
         else
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends xz-utils liblz4-tool musl-tools
+          sudo apt-get install -y --no-install-recommends xz-utils liblz4-tool musl-tools libssl-dev
         fi
 
     ## TODO Cache for faster build for different targets
