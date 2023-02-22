@@ -210,7 +210,7 @@ jobs:
           os: ubuntu-20.04
           rust: stable
           target: x86_64-unknown-linux-musl
-          use-cross-build: false
+          use-cross-build: true
         - build: macos
           os: macos-latest
           rust: stable
