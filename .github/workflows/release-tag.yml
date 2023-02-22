@@ -7,7 +7,10 @@ on:
     inputs:
       git_tag:
         description: Git Tag To Update To Ockam Develop Commit
-        required: false
+        required: true
+      pr_branch:
+        description: PR Branch To Merge
+        required: true
 
 permissions:
   # Contents permission allows us read this repository.
@@ -23,13 +26,6 @@ jobs:
       contents: write
 
     steps:
-      - name: Get Commit Of Develop
-        id: develop_sha
-        shell: bash
-        run: |
-          develop_sha=$(git ls-remote https://github.com/${{ github.repository_owner }}/ockam.git refs/heads/develop | head -1 | cut -f 1)
-          echo "sha=$develop_sha" >> $GITHUB_OUTPUT
-
       - name: Checkout To Ockam Repository
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
         with:
@@ -43,10 +39,16 @@ jobs:
           gpg_name: '${{ secrets.GPG_USER_NAME }}'
           gpg_email: '${{ secrets.GPG_EMAIL }}'
 
+      - name: Merge Crate Bump PR
+        run: |
+          set -ex
+          git merge --ff-only ${{ github.event.inputs.pr_branch }}
+          git push
+
       - name: Update Tag Commit To That Merged by Mergify On Develop
         shell: bash
         run: |
-          git tag -s -a ${{ github.event.inputs.git_tag }} ${{ steps.develop_sha.outputs.sha }} -m "Ockam Release" -f
+          git tag -s -a ${{ github.event.inputs.git_tag }} develop -m "Ockam Release" -f
           git push origin ${{ github.event.inputs.git_tag }} -f
 
       - name: Release GitHub Asset
