@@ -19,7 +19,7 @@ jobs:
           fetch-depth: '0'
 
       - name: Merge Fast Forward
-        uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
+        uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.1
         with:
           # Branch to merge
           branchtomerge: ${{ github.event.inputs.branch_name }}
