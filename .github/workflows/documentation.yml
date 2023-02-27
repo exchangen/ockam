@@ -9,6 +9,20 @@ defaults:
 
 on:
   workflow_dispatch:
+  merge_group:
+    paths:
+      - '.github/workflows/documentation.yml'
+      - 'documentation/use-cases/**.md'
+      - 'documentation/guides/rust/**.md'
+      - 'tools/docs/**'
+      - '**.rs'
+      - '**.toml'
+      - '**/Cargo.lock'
+      - '**.gradle'
+      - 'tools/gradle/**'
+      - 'gradlew'
+      - 'gradlew.bat'
+      - '.github/actions/**'
   pull_request:
     paths:
       - '.github/workflows/documentation.yml'

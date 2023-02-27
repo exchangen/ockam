@@ -1,0 +1,33 @@
+name: PR CI Watcher
+
+permissions:
+  contents: read
+
+on:
+  merge_group:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  done:
+    if: ${{ github.event_name == 'pull_request' }}
+    permissions:
+      actions: read
+      pull-requests: read
+
+    name: PR CI Watcher
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+      - name: Check Running Actions For PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -ex
+          PR_NUMBER="${{ github.event.pull_request.head.ref }}" ORGANIZATION="${{ github.repository_owner }}" bash tools/scripts/pr_ci_watcher/pr_ci_watcher.sh
