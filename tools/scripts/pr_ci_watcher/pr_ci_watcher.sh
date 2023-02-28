@@ -12,8 +12,11 @@ fi
 set -ex
 
 while true; do
-  runs=$(gh pr view ${PR_NUMBER} --json statusCheckRollup -R ${ORGANIZATION}/ockam | jq '.statusCheckRollup')
-  echo "$runs"
+  run_details=$(gh pr view ${PR_NUMBER} --json statusCheckRollup,updatedAt,createdAt -R ${ORGANIZATION}/ockam)
+  runs=$(jq '.statusCheckRollup' <<<$run_details)
+  pr_updated_date=$(jq '.updatedAt' <<<$run_details)
+  pr_creation_date=$(jq '.createdAt' <<<$run_details)
+
   if [[ $(jq '.|type' <<<$runs) == '' ]]; then
     echo "Invalid return type... Exiting now."
     exit 1
@@ -37,8 +40,14 @@ while true; do
     conclusion=$(jq -r ".[$c].conclusion" <<<$runs)
     status=$(jq -r ".[$c].status" <<<$runs)
 
-    # echo "1 $workflow_name"
+    # Check if the workflow name hasn't been saved in the map and that workflow
+    # timestamp exceeds last time we updated the PR.
     if [[ $(jq "has(\"$workflow_name\")" <<<$new_map) == 'false' ]]; then
+      if [[ $pr_updated_date > $run_timestamp || $pr_creation_date > $run_timestamp ]]; then
+        echo "Workflow run is of a recent commit, skipping..."
+        continue
+      fi
+
       new_map=$(jq ".\"${workflow_name}\" += {\"startedAt\":\"$run_timestamp\"}" <<<$new_map)
       new_map=$(jq ".\"${workflow_name}\" += {\"status\":\"$status\"}" <<<$new_map)
       new_map=$(jq ".\"${workflow_name}\" += {\"conclusion\":\"$conclusion\"}" <<<$new_map)

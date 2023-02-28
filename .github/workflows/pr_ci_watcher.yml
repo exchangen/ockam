@@ -39,5 +39,15 @@ jobs:
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             PR_NUMBER="${{ github.head_ref || github.ref_name }}" ORGANIZATION="${{ github.repository_owner }}" bash tools/scripts/pr_ci_watcher/pr_ci_watcher.sh
           elif [[ ${{ github.event_name }} == 'merge_group' ]]; then
+            gh api \
+                -H "Accept: application/vnd.github+json" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                /repos/${{ github.repository }}/branches/${{ github.head_ref || github.ref_name }}
+
+            echo
+            echo
+            echo
+            echo
+
             BRANCH_NAME="${{ github.head_ref || github.ref_name }}" ORGANIZATION="${{ github.repository_owner }}" bash tools/scripts/pr_ci_watcher/ci_watcher.sh
           fi
