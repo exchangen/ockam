@@ -104,6 +104,5 @@ ockam_identity = { path = "../ockam_identity", version = "^0.69.0" }
 [dev-dependencies]
 assert_cmd = "2"
 tempfile = "3"
-
 ockam_macros = { path = "../ockam_macros", version = "^0.27.0" }
 ockam_api = { path = "../ockam_api", version = "0.24.0", features = ["std", "authenticators"] }
