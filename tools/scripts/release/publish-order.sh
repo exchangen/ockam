@@ -64,6 +64,7 @@ while [[ -n "${packages[*]}" ]]; do
 
     if $sorted; then
       echo "-----> $package sorted $index ${#packages[@]}"
+
       IFS=" " read -r -a sorted_packages <<<"${sorted_packages[*]} $package"
       sorted_packages_map[$package]=true
 
