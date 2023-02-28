@@ -6,7 +6,21 @@ permissions:
 on:
   workflow_dispatch:
   merge_group:
-    branches: [develop]
+    paths:
+      - '.github/workflows/elixir.yml'
+      - '**.ex'
+      - '**.exs'
+      - '**/mix.lock'
+      - '**/priv/**'
+      - '**/native/**'
+      - '**.rs'
+      - '**.toml'
+      - '**/Cargo.lock'
+      - '**.gradle'
+      - 'tools/gradle/**'
+      - 'gradlew'
+      - 'gradlew.bat'
+      - '.github/actions/**'
   pull_request:
     paths:
       - '.github/workflows/elixir.yml'
