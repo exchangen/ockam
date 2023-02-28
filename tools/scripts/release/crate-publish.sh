@@ -28,6 +28,7 @@ exclude_string=""
 # Get crates that are indicated to be excluded.
 for crate in "${crates_specified_to_be_excluded[@]}"; do
   echo "Excluding $crate from publishing as specified in env"
+
   exclude_string="$exclude_string --exclude $crate"
   bumped_crates[$crate]=false
 done
@@ -58,7 +59,7 @@ done
 # Check if this is a re-run...
 if [[ $OCKAM_PUBLISH_RECENT_FAILURE == true ]]; then
   echo "Script rerun on recent failure..."
-  echo "Checking recently successfully published crates..."
+  echo "Checking recently successfully published crates.."
 
   for i in "${!bumped_crates[@]}"; do
     if [[ ${bumped_crates[$i]} == true ]]; then
