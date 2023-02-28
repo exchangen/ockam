@@ -9,7 +9,23 @@ on:
       commit_sha:
         description: SHA to test workflow
   merge_group:
-    branches: [develop]
+    paths:
+      - ".github/workflows/rust.yml"
+      - "**.rs"
+      - "**.toml"
+      - "**/Cargo.lock"
+      - "**.gradle"
+      - "tools/gradle/**"
+      - "gradlew"
+      - "gradlew.bat"
+      - ".github/actions/**"
+      # This is a temporary fix.
+      # To allow merge queue to merge PRs, we need Rust and Elixir
+      # workflows to pass successfully. This PR ensures we also
+      # run Rust workflows on update to Elixir code.
+      - '**.ex'
+      - '**.exs'
+      - '**/mix.lock'
   pull_request:
     paths:
       - ".github/workflows/rust.yml"
