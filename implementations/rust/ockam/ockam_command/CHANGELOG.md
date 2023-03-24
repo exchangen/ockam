@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.83.0 - 2023-03-24
+
+### Added
+
+- Add shell abstraction to handle commands output streams
+- Add a command to create an authority node
+- Add examples and about sections to markdown generated docs
+
+### Changed
+
+- Move the `OneTimeCode` struct from the ockam_api crate to the ockam_identity crate
+- Pre-trusted identity identifiers attributes
+- All functions from ockam_command now return a `crate::Result`
+- Refactor `CliState` so it can be built using an explicit directory
+- Parse `/node/n1` to `/worker/addr` after connecting to the node via tcp
+- Update `authenticated` command tcp
+- Use abac in authority services implementation
+- Expand credential commands
+- Use tcp session on authenticated command
+- Updated dependencies
+
+### Fixed
+
+- Commands shows concise errors with a more human-readable format
+- Update project readiness check to include authority
+
+### Removed
+
+- Remove the lifetime annotation on `Credential` and `Attributes`
+- Remove warnings
+- Removed type parameters exposing implementation details
+
 ## 0.82.0 - 2023-03-03
 
 ### Changed

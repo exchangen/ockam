@@ -4,6 +4,61 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.26.0 - 2023-03-24
+
+### Added
+
+- Add default subcommand to node
+- Add print encodable output
+- Add `create_tcp_session` to `ockam_command`
+- Add missing serialize / deserialize instances
+
+### Changed
+
+- Pre-trusted identity identifiers attributes
+- Use credential instead of credentials
+- Usable kafka sidecar implementation
+- Implemented kafka message encryption and orchestrator integration
+- Bump aws-sdk-kms to 0.24.0 and aws-config to 0.54.1
+- Split cddl schema files & merge when cbor api validation is needed
+- Refactor `CliState` so it can be built using an explicit directory
+- Update `ockam_api` and `ockam_command` according to `TCP` updates
+- Parse `/node/n1` to `/worker/addr` after connecting to the node via tcp
+- Extend `ockam_api` transport info
+- Use abac in authority services implementation
+- Expand credential commands
+- Update secure-channel create to allow for a provided credential
+- Create tcp_connection along with secure channels in the same function call
+- Use sessions in ockam_api
+- Make trust arguments mandatory
+- `Sessions` update
+- Create an authority node
+- Start the authority node with the node create command
+- Retrieve the identity authority before creating the authority node
+- Show the authority node as up
+- Retry the creation of the lmdb database in case of a failure
+- Updated dependencies
+
+### Fixed
+
+- Deleting a vault won't affect the default
+- Fixes broken tests for macos, let the os choose available ports
+- Reorganize bats tests to run them in parallel
+- 'ockam enroll' ovewrites current configuration instead of returning error
+- Update cli_state test with credentials entry
+- Fixed the compilation errors with the tag feature
+- Fix clippy warnings on test code
+- Node duplication error
+- Node duplication error
+
+### Removed
+
+- Remove the lifetime annotation on `Credential` and `Attributes`
+- Remove warnings
+- Removed type parameters exposing implementation details
+- Remove the need for _arc functions
+- Remove the legacy storage migration code
+
 ## 0.25.0 - 2023-03-03
 
 ### Added
