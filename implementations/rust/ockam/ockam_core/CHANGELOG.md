@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.77.0 - 2023-03-24
+
+### Added
+
+- Add sessions to `ockam_core`
+- Address sessions pr comments
+- Add `src_addr` to `Routed<M>`
+
+### Changed
+
+- Inlined the ockam_key_exchange_core crate into the ockam_core crate
+- Split cddl schema files & merge when cbor api validation is needed
+- Derive `Debug` for no_std `RwLock`
+- `Sessions` update
+- Replace sessions-related `LocalInfo` with querying `Sessions`
+- Updated dependencies
+
+### Removed
+
+- Removed type parameters exposing implementation details
+
 ## 0.76.0 - 2023-03-03
 
 ### Changed
