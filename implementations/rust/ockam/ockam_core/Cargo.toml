@@ -91,7 +91,7 @@ futures-util = { version = "0.3.17", default-features = false, features = [
     "sink",
 ] }
 tinyvec = { version = "1.6.0", features = ["rustc_1_57"] }
-zeroize = { version = "1.4.2", features = ["zeroize_derive"] }
+zeroize = { version = "1.6.0", features = ["zeroize_derive"] }
 cfg-if = "1.0"
 subtle = { version = "2", default-features = false }
 tracing = { version = "0.1", default-features = false, features = ["attributes"] }
