@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.78.0 - 2023-03-27
+
+### Added
+
+- Add `TCP` disconnection and stop listener tests
+- Add small sleep after `tcp.stop_listener()` in test
+- Add `TrustOptions` to `ockam_transport_tcp`. refactor connection creation
+- Address sessions pr comments
+- Add `Sessions` support to receiving messages in `ockam_node`
+
+### Changed
+
+- Rework `TCP`
+- Use sessions in ockam_api
+- Make trust arguments mandatory
+- `Sessions` update
+- Clean `TrustOptions` processing
+- Replace sessions-related `LocalInfo` with querying `Sessions`
+- Updated dependencies
+
+### Fixed
+
+- Improve `TCP` tests
+
 ## 0.77.0 - 2023-03-03
 
 ### Added
