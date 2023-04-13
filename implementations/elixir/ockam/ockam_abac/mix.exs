@@ -77,7 +77,7 @@ defmodule Ockam.ABAC.MixProject do
   defp aliases do
     [
       docs: "docs --output _build/docs --formatter html",
-      run: "run --no-halt",
+      # run: "run --no-halt",
       "lint.format": "format --check-formatted",
       "lint.credo": "credo --strict",
       "lint.dialyzer": "dialyzer --format dialyxir",
